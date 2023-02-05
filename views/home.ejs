@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/home.css">
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <!-- HEADING -->
+    <h1><i class="fa-solid fa-list"></i> Todo List App</h1>
+
+    <!-- CONTAINER FOR THE APP -->
+    <div id="container">
+
+        <!-- FORM to collect data -->
+        <form action="/create-todo" method="POST">
+
+            <label class="label">Add Task</label><br>
+            <input name="name" placeholder="What are your plans?" class="add-task" id="add">
+
+            <label class="label">Due Date</label>
+            <label class="label pos-category">Category</label><br>
+            <input name="duedate" type="date" class="add-task smalladd" id="add">
+
+            <select name="category" class="add-task smalladd" id="add">
+                <option value="Study">Study</option>
+                <option value="Assignment">Assignment</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Workout">Workout</option>
+                <option value="Recreational">Recreational</option>
+            </select>
+
+            <!-- to calculate count for total tasks -->
+            <input type="submit" value="Add Task" class="button"><br>
+            <% var count=0 %>
+                <% for (let i of todo_list) { %>
+                    <% count++ %>
+                        <% } %>
+
+                            <span id="total-tasks">Total tasks:
+                                <span id="tasks-counter">
+                                    <%= count %>
+                                </span>
+                            </span>
+        </form>
+
+        <!-- MAKING LIST -->
+        <ul id="list">
+            <% for (let i of todo_list) { %>
+                <input type="checkbox" id="<%= i._id %>" {<%= i.completed %>?'checked': ''} class="custom-checkbox">
+                <label for="<%= i._id %>">
+                    <%= i.name %>
+                </label>
+                <span class="category-box">
+                    <%= i.category %>
+                </span>
+                <a href="/delete-todo/?id=<%= i._id %>">
+                    <i class="fa-solid fa-trash delete"></i>
+                </a>
+                <div class="date-box">
+                    <i class="fa-solid fa-calendar-days "></i>
+                    <%= i.duedate.getDate() %>-<%= i.duedate.getMonth()+1 %>-<%= i.duedate.getFullYear() %>
+                </div><br>
+            <% } %>
+                    <!-- <li>
+          <input type="checkbox" id="task1" data-id="12" class="custom-checkbox">
+          <label for="task1">Buy groceries</label>
+          <img src="bin.svg" class="delete" data-id="12" />
+        </li> -->
+
+
+        </ul>
+    </div>
+
+    <script src="https://kit.fontawesome.com/133845b97a.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
